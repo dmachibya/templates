@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/tailwind.min.css" />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css
+"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div data-app id="app">
+      <div class="grid grid-cols-5 h-screen">
+        <div class="col-span-1 h-full bg-white">
+          <div class="logo text-3xl font-bold text-blue-500 px-4 py-6">
+            <i class="mdi mdi-store" aria-hidden="true"></i>
+            SHOP
+          </div>
+          <div class="menu my-6">
+            <div class="flex flex-col gap-y-1">
+              <a
+                v-for="link in links"
+                :key="link.name"
+                :href="link.url"
+                class="flex gap-x-4 hover:bg-blue-50 hover:text-blue-500 px-4 py-3 border-right-2 border-blue-500 border-solid"
+                :class="link.active ? 'text-blue-500 bg-blue-50 border-r-4 border-blue-500 border-solid' : ''"
+              >
+                <i :class="link.icon" aria-hidden="true"></i>
+                <span>{{link.name}}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-4">
+          <div class="py-8 px-8">
+            <div class="flex justify-between">
+              <h1 class="font-bold">Dashboard</h1>
+              <div class="flex gap-x-4">
+                <div
+                  @focus="notifications = !notifications"
+                  @focusout="notifications = !notifications"
+                  tabindex="0"
+                  class="not w-12 h-12 rounded-md cursor-pointer bg-blue-500 text-white text-xl flex justify-center items-center"
+                >
+                  <i class="mdi mdi-bell-outline"></i>
+                </div>
+                <div
+                  @focus="profileOptions = !profileOptions"
+                  @focusout="profileOptions = !profileOptions"
+                  tabindex="0"
+                  class="w-12 h-12 cursor-pointer rounded-md overflow-hidden"
+                >
+                  <img src="/img/male-profile.jpg" class="w-full" alt="" />
+                </div>
+                <div
+                  v-if="profileOptions"
+                  class="options absolute top-20 right-8 mt-2"
+                >
+                  <div class="w-32 bg-white shadow-md flex flex-col divide-y">
+                    <a href="#" class="w-full py-2 px-4 hover:bg-gray-100"
+                      >Sign Out</a
+                    >
+                    <a href="#" class="w-full py-2 px-4 hover:bg-gray-100"
+                      >Edit Profile</a
+                    >
+                  </div>
+                </div>
+                <div
+                  v-if="notifications"
+                  class="options absolute top-20 right-8 mt-2"
+                >
+                  <div class="w-64 bg-white shadow-md flex flex-col divide-y">
+                    <a
+                      v-for="item in [1,2,3]"
+                      :key="item"
+                      href="#"
+                      class="w-full py-2 px-4 hover:bg-gray-100 text-gray-500 flex gap-x-2 text-sm"
+                    >
+                      <span>
+                        <i>Sale</i>
+                        Lorem ipsum dolor, sit amet consectetur adipisicing
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: {
+      profileOptions: false,
+      notifications: false,
+      links: [
+        {
+          name: "Dashboard",
+          active: true,
+          url: "/dashboard",
+          icon: "mdi mdi-view-dashboard-outline",
+        },
+        {
+          name: "Sales",
+          url: "/sales",
+          active: false,
+          icon: "mdi mdi-cash-multiple",
+        },
+        {
+          name: "Inventory",
+          url: "/inventory",
+          active: false,
+          icon: "mdi mdi-storefront-outline",
+        },
+      ],
+    },
+  });
+</script>
